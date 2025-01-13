@@ -24,19 +24,23 @@ const App: React.FC = () => {
   };
 
   const handleCardThrow = (index: number) => {
-    console.log(`Card ${index} was thrown.`); // Example usage of `index`
-  
+    if(index)
+    {
+      console.log("index!!!")
+    }
+
     setCollectedCards((prevCollected) => {
       const newCount = prevCollected + 1;
       const newProgress = (newCount / 3) * 100; // Update progress based on the number of collected cards
       setProgress(newProgress);
-  
+
       if (newCount === 3) {
+        // If all cards are collected, reset after a delay
         setTimeout(() => {
           resetToFirstEnvironment();
         }, 1500); // Wait 1.5 seconds for animations to finish
       }
-  
+
       return newCount;
     });
   };
