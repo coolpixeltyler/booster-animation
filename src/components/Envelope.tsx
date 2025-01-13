@@ -14,19 +14,21 @@ const Envelope: React.FC<EnvelopeProps> = ({ onOpen }) => {
     if (topPartRef.current && bottomPartRef.current) {
       // Animate the top part moving to the bottom-right smoothly
       gsap.to(topPartRef.current, {
-        x: 150, // Move to the right
-        y: 100, // Move downward
-        duration: 1, // Smooth animation duration
+        x: "30vw", // Move to the right
+        y: "30vh", // Move downward
+        duration: 1.5, // Smooth animation duration
         ease: "power2.inOut", // Rounded smooth motion
-        rotation: 20, // Add slight rotation for realism
+        rotation: 160, // Add slight rotation for realism
       });
 
       // Animate the remaining green card moving downward to reveal only half
       gsap.to(bottomPartRef.current, {
-        y: 100, // Move downward
-        duration: 1,
+        y: "55vh", // Move downward
+        duration: 2,
         ease: "power2.inOut",
-        onComplete: onOpen, // Trigger the appearance of the cards
+        onComplete: () => {
+          onOpen(); // Trigger the appearance of the cards at the same time
+        },
       });
     }
   };
@@ -73,6 +75,8 @@ const Envelope: React.FC<EnvelopeProps> = ({ onOpen }) => {
         ref={bottomPartRef}
         style={{
           width: "100%",
+          border: "2px",
+          borderColor: "white",
           height: "calc(100% - 50px)", // Adjusted to fit under the new top part
           backgroundColor: "#2ecc71",
           borderRadius: "5px",
@@ -91,7 +95,8 @@ const Envelope: React.FC<EnvelopeProps> = ({ onOpen }) => {
             backgroundColor: "#27ae60",
             borderRadius: "5px",
           }}
-        />
+        >
+        </div>
       </div>
     </div>
   );

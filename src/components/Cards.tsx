@@ -3,44 +3,32 @@ import { gsap } from "gsap";
 
 interface CardsProps {
   onThrow: (index: number) => void;
-  onCompleteAll: () => void; // Callback when all cards are fully shown
 }
 
-const Cards: React.FC<CardsProps> = ({ onThrow, onCompleteAll }) => {
+const Cards: React.FC<CardsProps> = ({ onThrow }) => {
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    // Prevent duplicate animations
-    if (cardsRef.current.length === 0) return;
-
     // Animate cards appearing one by one
-    const timeline = gsap.timeline({
-      onComplete: () => {
-        if (onCompleteAll) {
-          onCompleteAll(); // Trigger callback when all cards are fully shown
-        }
-      },
-    });
-
     cardsRef.current.forEach((card, index) => {
-      timeline.fromTo(
+      gsap.fromTo(
         card,
         {
           opacity: 0,
-          scale: 0.5, // Start smaller
-          y: 100, // Start from inside the green card
+          scale: 0.2, // Start smaller
+          y: "55vh", // Start from inside the green card
         },
         {
           opacity: 1,
           scale: 1, // Grow to full size
           y: 0, // Move to its final position
+          delay: index * 0.3, // Delay each card by 0.3 seconds
           duration: 0.8,
           ease: "power2.out",
-          delay: index * 0.3, // Staggered appearance
         }
       );
     });
-  }, [onCompleteAll]);
+  }, []);
 
   const handleCardClick = (index: number) => {
     const card = cardsRef.current[index];
@@ -60,7 +48,6 @@ const Cards: React.FC<CardsProps> = ({ onThrow, onCompleteAll }) => {
         scale: 0.5, // Shrink size
         opacity: 0, // Fade out
         duration: 1,
-        ease: "power2.inOut",
         onComplete: () => onThrow(index), // Callback when animation finishes
       });
     }
@@ -78,15 +65,13 @@ const Cards: React.FC<CardsProps> = ({ onThrow, onCompleteAll }) => {
       {["#e91e63", "#ff9800", "#ffeb3b"].map((color, index) => (
         <div
           key={index}
-          ref={(el) => {
-            if (el) cardsRef.current[index] = el; // Ensure refs are correctly set
-          }}
+          ref={(el) => (cardsRef.current[index] = el!)}
           onClick={() => handleCardClick(index)}
           style={{
             width: "120px",
             height: "160px",
             backgroundColor: color,
-            opacity: 0, // Start hidden for animation
+            opacity: 0, // Start hidden
             transform: "translateY(50px)", // For staggered animation
             cursor: "pointer",
             borderRadius: "8px",
@@ -99,9 +84,10 @@ const Cards: React.FC<CardsProps> = ({ onThrow, onCompleteAll }) => {
             fontWeight: "bold",
             fontSize: "14px",
             position: "relative",
+            border: "2px",
+            borderColor: "white",
           }}
         >
-          {/* New Badge */}
           <div
             style={{
               position: "absolute",
@@ -129,17 +115,14 @@ const Cards: React.FC<CardsProps> = ({ onThrow, onCompleteAll }) => {
           >
             Name
           </div>
-
-          {/* Semi-transparent rectangle */}
           <div
             style={{
-              width: "90%",
-              height: "60px", // Adjust height as per design
-              backgroundColor: "rgba(0, 0, 0, 0.2)", // Semi-transparent block
+              width: "100%",
+              height: "50%",
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
               borderRadius: "5px",
-              marginTop: "5px", // Add some spacing below "Name"
             }}
-          />
+          ></div>
         </div>
       ))}
     </div>

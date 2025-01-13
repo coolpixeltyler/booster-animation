@@ -6,18 +6,12 @@ const App: React.FC = () => {
   const [showCards, setShowCards] = useState(false); // Determines if cards are displayed
   const [progress, setProgress] = useState(0); // Progress bar value
   const [collectedCards, setCollectedCards] = useState(0); // Number of collected cards
-  const [cardsFullyShown, setCardsFullyShown] = useState(false); // Track if all cards are fully shown
 
-  if (cardsFullyShown)
+  if(collectedCards)
   {
-    console.log("Cards are fully Shown!");
+    console.log("123");
   }
 
-  if (collectedCards)
-  {
-    console.log("Cards are collected!");
-  }
-  
   const handleOpenEnvelope = () => {
     // Show cards when the envelope is clicked
     setShowCards(true);
@@ -26,9 +20,8 @@ const App: React.FC = () => {
   const handleCardThrow = (index: number) => {
     if(index)
     {
-      console.log("index!!!")
+      console.log("123");
     }
-
     setCollectedCards((prevCollected) => {
       const newCount = prevCollected + 1;
       const newProgress = (newCount / 3) * 100; // Update progress based on the number of collected cards
@@ -49,12 +42,6 @@ const App: React.FC = () => {
     setShowCards(false); // Return to showing the envelope
     setProgress(0); // Reset progress bar
     setCollectedCards(0); // Reset collected card count
-    setCardsFullyShown(false); // Reset fully shown state
-  };
-
-  const handleCardsFullyShown = () => {
-    // Set state when all cards are fully shown
-    setCardsFullyShown(true);
   };
 
   return (
@@ -76,44 +63,31 @@ const App: React.FC = () => {
         {/* Left Sidebar */}
         <div
           style={{
-            width: "20%", // Adjusted width for left sidebar
-            backgroundColor: "#101521", // Sidebar background color
+            width: "20%",
+            backgroundColor: "#181a26",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between", // Match spacing
+            justifyContent: "center",
+            alignItems: "center",
             padding: "10px",
-            borderRight: "1px solid #252637", // Add border for separation
           }}
         >
-          {/* Top Menu Icon */}
+          {/* Placeholder for left-side content */}
           <div
             style={{
-              width: "100%",
-              height: "30px",
-              backgroundColor: "#252637",
-              borderRadius: "4px",
-              marginBottom: "20px",
-            }}
-          />
-
-          {/* Placeholder Boxes */}
-          <div
-            style={{
-              flexGrow: 1,
-              backgroundColor: "#181a26",
-              borderRadius: "5px",
-              margin: "10px 0",
-            }}
-          />
-
-          {/* Bottom Placeholder */}
-          <div
-            style={{
-              width: "100%",
-              height: "40px",
+              width: "80%",
+              height: "50px",
               backgroundColor: "#252637",
               borderRadius: "5px",
-              alignSelf: "center",
+              marginBottom: "10px",
+            }}
+          />
+          <div
+            style={{
+              width: "80%",
+              height: "150px",
+              backgroundColor: "#252637",
+              borderRadius: "5px",
             }}
           />
         </div>
@@ -122,35 +96,35 @@ const App: React.FC = () => {
         <div
           style={{
             flexGrow: 1,
-            width: "100vw",
-            backgroundColor: "#20232e", // Background color for main content
+            width: '100vw',
+            backgroundColor: "#20232e",
             position: "relative",
+            borderRadius: "8px",
             padding: "20px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            borderLeft: "1px solid #252637", // Add border for separation
           }}
         >
           {/* Progress Bar */}
           <div
             id="collection-bar"
             style={{
-              position: "fixed",
-              top: "20px",
-              right: "20px",
+              position: "fixed", // Fix the collection bar in the right-top corner
+              top: "10px",
+              right: "10px",
               backgroundColor: "#252637",
-              padding: "5px 15px",
+              padding: "5px 10px",
               borderRadius: "20px",
               display: "flex",
-              flexDirection: "column",
+              flexDirection: 'column',
               alignItems: "center",
               justifyContent: "center",
               color: "#ffffff",
               fontSize: "12px",
               fontWeight: "bold",
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
-              zIndex: 100,
+              zIndex: 100, // Ensure it stays above other elements
             }}
           >
             <span style={{ marginRight: "8px" }}>
@@ -179,9 +153,9 @@ const App: React.FC = () => {
 
           {/* Conditional rendering of envelope or cards */}
           {!showCards ? (
-            <Envelope onOpen={handleOpenEnvelope} />
+            <Envelope onOpen={handleOpenEnvelope} /> // Show envelope
           ) : (
-            <Cards onThrow={handleCardThrow} onCompleteAll={handleCardsFullyShown} />
+            <Cards onThrow={handleCardThrow} /> // Show cards
           )}
         </div>
       </div>
