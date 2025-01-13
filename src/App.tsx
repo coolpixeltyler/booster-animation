@@ -72,22 +72,35 @@ const App: React.FC = () => {
             padding: "10px",
           }}
         >
-          {/* Placeholder for left-side content */}
+          {/* Top Menu Icon */}
           <div
             style={{
-              width: "80%",
-              height: "50px",
+              width: "100%",
+              height: "30px",
               backgroundColor: "#252637",
-              borderRadius: "5px",
-              marginBottom: "10px",
+              borderRadius: "4px",
+              marginBottom: "20px",
             }}
           />
+
+          {/* Placeholder Boxes */}
           <div
             style={{
-              width: "80%",
-              height: "150px",
+              flexGrow: 1,
+              backgroundColor: "#181a26",
+              borderRadius: "5px",
+              margin: "10px 0",
+            }}
+          />
+
+          {/* Bottom Placeholder */}
+          <div
+            style={{
+              width: "100%",
+              height: "40px",
               backgroundColor: "#252637",
               borderRadius: "5px",
+              alignSelf: "center",
             }}
           />
         </div>
