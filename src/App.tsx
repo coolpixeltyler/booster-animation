@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Envelope from "./components/Envelope";
 import Cards from "./components/Cards";
-import ProgressBar from "./components/ProgressBar";
 
 const App: React.FC = () => {
   const [showCards, setShowCards] = useState(false); // Determines if cards are displayed
@@ -9,24 +8,35 @@ const App: React.FC = () => {
   const [collectedCards, setCollectedCards] = useState(0); // Number of collected cards
   const [cardsFullyShown, setCardsFullyShown] = useState(false); // Track if all cards are fully shown
 
+  if (cardsFullyShown)
+  {
+    console.log("Cards are fully Shown!");
+  }
+
+  if (collectedCards)
+  {
+    console.log("Cards are collected!");
+  }
+  
   const handleOpenEnvelope = () => {
     // Show cards when the envelope is clicked
     setShowCards(true);
   };
 
   const handleCardThrow = (index: number) => {
+    console.log(`Card ${index} was thrown.`); // Example usage of `index`
+  
     setCollectedCards((prevCollected) => {
       const newCount = prevCollected + 1;
       const newProgress = (newCount / 3) * 100; // Update progress based on the number of collected cards
       setProgress(newProgress);
-
+  
       if (newCount === 3) {
-        // If all cards are collected, reset after a delay
         setTimeout(() => {
           resetToFirstEnvironment();
         }, 1500); // Wait 1.5 seconds for animations to finish
       }
-
+  
       return newCount;
     });
   };
